@@ -2,8 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useScroll, useTransform } from "framer-motion";
-import videoSrc from "../../assets/scroll_video.mp4"; // Default video file
-import videoSrc2 from "../../assets/scroll_video3.mp4"; // Video for max-md screens
+import videoSrc from "../../assets/scroll_video.webm"; // Default video file
+import videoSrc2 from "../../assets/scroll_video3.webm"; // Video for max-md screens
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -56,19 +56,11 @@ const ScrollVideo = () => {
       },
     });
 
-    const textTrigger = ScrollTrigger.create({
-      trigger: containerRef.current,
-      start: "top top",
-      end: "+=1000 top",
-      scrub: 1,
-    });
-
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
 
     window.addEventListener("resize", handleResize);
     return () => {
       videoTrigger.kill();
-      textTrigger.kill();
       window.removeEventListener("resize", handleResize);
     };
   }, [isMobile]);
@@ -84,6 +76,9 @@ const ScrollVideo = () => {
         className="absolute inset-0 w-full h-full object-cover"
         muted
         playsInline
+        preload="auto"
+        loading="lazy" // Lazy load the video
+        style={{ objectFit: "cover", willChange: "transform" }} // GPU-accelerated CSS for smooth performance
       />
 
       {/* Conditionally render motion divs based on screen size */}

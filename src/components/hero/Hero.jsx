@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import heroVideo from "../../assets/hero_video.mp4";
+import heroVideo from "../../assets/hero_video.webm";
 import { Typewriter } from "react-simple-typewriter";
 import resume from "../../assets/Soumyajit-Sengupta-CV1.pdf";
 import { useSpring, animated } from "@react-spring/web";
+import posterImg from "../../assets/posterImg.png";
 
 const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false); // State to track video load
@@ -46,6 +47,8 @@ const Hero = () => {
           loop
           muted
           style={fadeIn}
+          preload="metadata"
+          poster={posterImg}
         />
       </div>
       <div className="flex flex-col gap-2 justify-center w-3/5 max-md:w-full max-md:text-center max-md:text-xs">

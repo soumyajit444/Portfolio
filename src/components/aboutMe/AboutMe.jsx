@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { Icon } from "leaflet";
+import markerIconPng from "leaflet/dist/images/marker-icon.png";
+import markerShadowPng from "leaflet/dist/images/marker-shadow.png";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import picture from "../../assets/profile_hero.jpg";
 import guitarImg from "../../assets/guitar.jpg";
@@ -11,8 +12,6 @@ import photographyImg from "../../assets/photography.jpg";
 import travellingImg from "../../assets/travelling.jpg";
 import paintingImg from "../../assets/painting.jpg";
 import singingImg from "../../assets/singing.jpg";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const hobbies = [
   {
@@ -43,14 +42,10 @@ const hobbies = [
 ];
 
 const AboutMe = () => {
-  const [scrollWheelZoom, setScrollWheelZoom] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const mapContainerRef = useRef(null);
-  const hobbiesContainerRef = useRef(null);
-  const { scrollY } = useScroll();
 
-  // Define Y-axis transform for larger screens only
-  const hobbiesY = useTransform(scrollY, [800, 1800], [400, -400]);
+  const { scrollYProgress } = useScroll();
+  const hobbiesY = useTransform(scrollYProgress, [0.5, 1], [2200, -200]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,28 +53,17 @@ const AboutMe = () => {
     };
     window.addEventListener("resize", handleResize);
 
-    // Y-axis animation for larger screens
-    if (!isMobile) {
-      gsap.fromTo(
-        ".hobbies",
-        { yPercent: 100 }, // Start from bottom
-        {
-          yPercent: -100, // Move to top
-          ease: "linear",
-          scrollTrigger: {
-            trigger: ".hobbies-container",
-            start: "top top",
-            end: "+=2500 top",
-            scrub: true,
-          },
-        }
-      );
-    }
-
-    ScrollTrigger.refresh();
-
     return () => window.removeEventListener("resize", handleResize);
-  }, [isMobile]);
+  }, []);
+
+  const customMarkerIcon = new Icon({
+    iconUrl: markerIconPng,
+    shadowUrl: markerShadowPng,
+    iconSize: [25, 41], // size of the icon
+    iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
+    popupAnchor: [1, -34], // point from which the popup should open relative to the iconAnchor
+    shadowSize: [41, 41], // size of the shadow
+  });
 
   return (
     <div
@@ -133,14 +117,16 @@ const AboutMe = () => {
                 center={[22.483993, 88.3434458]}
                 zoom={5}
                 className="w-full h-full rounded-lg"
-                scrollWheelZoom={scrollWheelZoom}
-                ref={mapContainerRef}
+                scrollWheelZoom={false}
               >
                 <TileLayer
                   url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>'
                 />
-                <Marker position={[22.483993, 88.3434458]}>
+                <Marker
+                  position={[22.483993, 88.3434458]}
+                  icon={customMarkerIcon}
+                >
                   <Popup>My Location</Popup>
                 </Marker>
               </MapContainer>
@@ -148,35 +134,30 @@ const AboutMe = () => {
           </div>
         </div>
 
-        {/* Right Div with Parallax Scroll */}
+        {/* Right Div with Scroll-based Parallax */}
         <motion.div
-          style={{ y: hobbiesY }} // Only Y-axis animation for larger screens
+          style={{ y: hobbiesY }}
           className="w-1/4 h-full flex items-center max-md:mt-[500px] justify-center p-4 relative hobbies-container bg-transparent max-md:hidden"
         >
           {/* Vertical Slider */}
-          <div
-            ref={hobbiesContainerRef}
-            className="absolute inset-0 flex items-center justify-center overflow-visible hobbies"
-          >
-            <div className="flex flex-col items-center justify-center space-y-4">
-              {hobbies.map((hobby, index) => (
-                <a
-                  href={hobby.navLink}
-                  target="_blank"
-                  key={index}
-                  className="w-[400px] h-[200px] max-md:w-[150px] max-md:h-[70px] p-4 bg-gray-600 hover:bg-gray-800 cursor-pointer shadow-lg rounded-lg transition-all flex items-center justify-center"
-                >
-                  <img
-                    src={hobby.img}
-                    alt={hobby.name}
-                    className="w-[150px] h-[150px] max-md:w-[50px] max-md:h-[50px] aspect-square rounded-lg"
-                  />
-                  <p className="text-center mx-auto text-2xl max-md:text-sm font-light text-white">
-                    {hobby.name}
-                  </p>
-                </a>
-              ))}
-            </div>
+          <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">
+            {hobbies.map((hobby, index) => (
+              <a
+                href={hobby.navLink}
+                target="_blank"
+                key={index}
+                className="w-[400px] h-[200px] max-md:w-[150px] max-md:h-[70px] p-4 bg-gray-600 hover:bg-gray-800 cursor-pointer shadow-lg rounded-lg transition-all flex items-center justify-center"
+              >
+                <img
+                  src={hobby.img}
+                  alt={hobby.name}
+                  className="w-[150px] h-[150px] max-md:w-[50px] max-md:h-[50px] aspect-square rounded-lg"
+                />
+                <p className="text-center mx-auto text-2xl max-md:text-sm font-light text-white">
+                  {hobby.name}
+                </p>
+              </a>
+            ))}
           </div>
         </motion.div>
       </div>
