@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -56,6 +56,16 @@ const hobbies = [
 const LowerAboutMe = () => {
   const mapContainerRef = useRef(null);
   const [scrollWheelZoom, setScrollWheelZoom] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
@@ -66,59 +76,61 @@ const LowerAboutMe = () => {
         </div>
         {/* Map Container */}
         <div className="w-full mx-auto h-40 border border-gray-300 rounded-lg overflow-hidden mt-2 mb-6 z-0">
-          <MapContainer
-            center={[22.483993, 88.3434458]}
-            zoom={5}
-            className="w-full h-full rounded-lg"
-            scrollWheelZoom={scrollWheelZoom}
-            ref={mapContainerRef}
-            style={{ zIndex: 5 }}
-          >
-            <TileLayer
-              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>'
-              style={{ zIndex: 6 }}
-            />
-            <Marker
-              position={[22.483993, 88.3434458]}
-              icon={customMarker}
-              style={{ zIndex: 7 }}
+          {isMobile ? (
+            <MapContainer
+              center={[22.483993, 88.3434458]}
+              zoom={5}
+              className="w-full h-full rounded-lg"
+              scrollWheelZoom={scrollWheelZoom}
+              ref={mapContainerRef}
+              style={{ zIndex: 5 }}
             >
-              <Popup style={{ zIndex: 8 }}>My Location</Popup>
-            </Marker>
-          </MapContainer>
+              <TileLayer
+                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                style={{ zIndex: 6 }}
+              />
+              <Marker
+                position={[22.483993, 88.3434458]}
+                icon={customMarker}
+                style={{ zIndex: 7 }}
+              >
+                <Popup style={{ zIndex: 8 }}>My Location</Popup>
+              </Marker>
+            </MapContainer>
+          ) : (
+            <div className="text-center text-white">
+              Map is not available on mobile devices.
+            </div>
+          )}
         </div>
 
         {/* Marquee Container */}
         <Marquee className="w-full" speed={40} gradient={false}>
           <div className="flex items-center space-x-4">
-            {/* Duplicate the hobbies list twice */}
-            {[
-              ...hobbies,
-              ...hobbies,
-              ...hobbies,
-              ...hobbies, // Duplicate list for continuous scrolling
-            ].map((hobby, index) => (
-              <a
-                href={hobby.navLink}
-                target="_blank"
-                key={index}
-                className="h-[70px] bg-gray-800  hover:bg-gray-900 shadow-lg rounded-lg transition-all flex items-center justify-center"
-              >
-                <img
-                  src={hobby.img}
-                  alt={hobby.name}
-                  className="w-[40px] h-[40px] m-3 aspect-square rounded-lg"
-                />
-                <p className="text-center text-xs p-3 font-light text-white">
-                  {hobby.name}
-                </p>
-              </a>
-            ))}
+            {[...hobbies, ...hobbies, ...hobbies, ...hobbies].map(
+              (hobby, index) => (
+                <a
+                  href={hobby.navLink}
+                  target="_blank"
+                  key={index}
+                  className="h-[70px] bg-gray-800 hover:bg-gray-900 shadow-lg rounded-lg transition-all flex items-center justify-center"
+                >
+                  <img
+                    src={hobby.img}
+                    alt={hobby.name}
+                    className="w-[40px] h-[40px] m-3 aspect-square rounded-lg"
+                  />
+                  <p className="text-center text-xs p-3 font-light text-white">
+                    {hobby.name}
+                  </p>
+                </a>
+              )
+            )}
           </div>
         </Marquee>
       </div>
-      <div className=" flex items-center justify-center p-4">
+      <div className="flex items-center justify-center p-4">
         <Link
           to="home"
           spy={true}
