@@ -1,6 +1,10 @@
 import React, { useRef, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import markerRetina from "leaflet/dist/images/marker-icon-2x.png";
 import Marquee from "react-fast-marquee";
 
 import guitarImg from "../../assets/guitar.jpg";
@@ -9,6 +13,17 @@ import travellingImg from "../../assets/travelling.jpg";
 import paintingImg from "../../assets/painting.jpg";
 import singingImg from "../../assets/singing.jpg";
 import { Link } from "react-scroll";
+
+// Custom marker for Leaflet
+const customMarker = new L.Icon({
+  iconUrl: markerIcon,
+  iconRetinaUrl: markerRetina,
+  shadowUrl: markerShadow,
+  iconSize: [25, 41], // size of the icon
+  iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
+  popupAnchor: [1, -34], // point from which the popup should open relative to the iconAnchor
+  shadowSize: [41, 41], // size of the shadow
+});
 
 const hobbies = [
   {
@@ -64,7 +79,11 @@ const LowerAboutMe = () => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>'
               style={{ zIndex: 6 }}
             />
-            <Marker position={[22.483993, 88.3434458]} style={{ zIndex: 7 }}>
+            <Marker
+              position={[22.483993, 88.3434458]}
+              icon={customMarker}
+              style={{ zIndex: 7 }}
+            >
               <Popup style={{ zIndex: 8 }}>My Location</Popup>
             </Marker>
           </MapContainer>

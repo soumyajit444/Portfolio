@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useScroll, useTransform } from "framer-motion";
 import videoSrc from "../../assets/scroll_video.webm"; // Default video file
-import videoSrc2 from "../../assets/scroll_video3.webm"; // Video for max-md screens
+import videoSrc2 from "../../assets/scroll_video2.webm"; // Video for max-md screens
 
 gsap.registerPlugin(ScrollTrigger);
 
