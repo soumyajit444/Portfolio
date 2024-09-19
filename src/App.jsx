@@ -44,18 +44,9 @@ export default function App() {
           <ContentWrapper>
             <TextReveal />
           </ContentWrapper>
-
-          {/* Wrap ScrollVideo with Suspense and provide a fallback */}
-          <Suspense
-            fallback={
-              <div className="fallback-container">Loading video...</div>
-            }
-          >
-            <ScrollVideo />
-            <VideoSlider />
-            <ContactForm />
-          </Suspense>
-
+          <ScrollVideo />
+          <VideoSlider />
+          <ContactForm />
           <AboutMe />
           <LowerAboutMe />
           <Footer />
