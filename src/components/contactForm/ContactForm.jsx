@@ -62,7 +62,12 @@ const ContactForm = ({ showModal, setShowModal }) => {
         <div className="flex flex-col justify-between max-w-md w-full h-auto gap-3">
           {/* Top Div with Video */}
           <div className="rounded-xl overflow-hidden">
-            <video autoPlay loop muted className="w-full h-full object-cover">
+            <video
+              autoPlay
+              loop
+              muted
+              className="w-full h-full md:hidden lg:block max-md: block object-cover"
+            >
               <source src={video} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
