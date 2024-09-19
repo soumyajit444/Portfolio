@@ -57,7 +57,7 @@ const ContactForm = ({ showModal, setShowModal }) => {
 
   return (
     <>
-      <div className="fixed inset-0 flex lg:flex-row md:flex-col max-md:flex-col max-md:scale-75 items-center justify-center bg-black bg-opacity-80 z-50 gap-4">
+      <div className="fixed inset-0 flex lg:flex-row md:flex-col-reverse max-md:flex-col-reverse max-md:scale-75 items-center justify-center z-50 gap-4">
         {/* Container with video and transparent div */}
         <div className="flex flex-col justify-between max-w-md w-full h-auto gap-3">
           {/* Top Div with Video */}
@@ -68,16 +68,16 @@ const ContactForm = ({ showModal, setShowModal }) => {
             </video>
           </div>
           {/* Bottom Transparent Div */}
-          <div className="flex justify-between mt-3 w-full">
+          <div className="flex justify-between gap-4 mt-3 w-full">
             <div
-              className="flex-1 mx-2 p-5 rounded-xl border border-gray-300 text-white text-center transition-transform duration-300 bg-black shadow-lg backdrop-blur-lg bg-opacity-30 relative"
+              className="flex-1 p-5 rounded-xl border border-gray-300 text-white text-center transition-transform duration-300 bg-black shadow-lg backdrop-blur-lg bg-opacity-60 relative"
               onMouseEnter={() => setHovered({ ...hovered, phone: true })}
               onMouseLeave={() => setHovered({ ...hovered, phone: false })}
             >
               {hovered.phone ? "8622874796" : "Call me"}
             </div>
             <div
-              className="flex-1 mx-2 p-5  rounded-xl border border-gray-300 text-white text-center transition-transform duration-300 bg-black shadow-lg backdrop-blur-lg bg-opacity-30 relative"
+              className="flex-1 p-5  rounded-xl border border-gray-300 text-white text-center transition-transform duration-300 bg-black shadow-lg backdrop-blur-lg bg-opacity-60 relative"
               onMouseEnter={() => setHovered({ ...hovered, email: true })}
               onMouseLeave={() => setHovered({ ...hovered, email: false })}
             >
@@ -85,7 +85,7 @@ const ContactForm = ({ showModal, setShowModal }) => {
             </div>
           </div>
           {/* New Div with Icons */}
-          <div className="flex justify-between mt-3 rounded-xl border border-gray-300 p-4 h-auto bg-black shadow-lg backdrop-blur-lg bg-opacity-30 relative">
+          <div className="flex justify-between mt-3 rounded-xl border border-gray-300 p-4 h-auto bg-black shadow-lg backdrop-blur-lg bg-opacity-60 relative">
             <a
               href="https://www.linkedin.com/in/soumyajit-sengupta"
               target="_blank"
@@ -112,7 +112,7 @@ const ContactForm = ({ showModal, setShowModal }) => {
         </div>
 
         {/* Contact Form */}
-        <div className="bg-black border border-gray-300 p-6 rounded-xl shadow-lg backdrop-blur-lg bg-opacity-30 max-w-md w-full relative">
+        <div className="bg-black border border-gray-300 p-6 rounded-xl shadow-lg backdrop-blur-lg bg-opacity-60 max-w-md w-full relative">
           <button
             onClick={() => setShowModal(false)}
             className="absolute top-4 right-4 text-white px-2 font-light text-3xl hover:bg-red-600 hover:px-2 hover:rounded-lg hover:bg-opacity-70"

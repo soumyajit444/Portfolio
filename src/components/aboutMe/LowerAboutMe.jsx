@@ -6,7 +6,7 @@ import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import markerRetina from "leaflet/dist/images/marker-icon-2x.png";
 import Marquee from "react-fast-marquee";
-
+import mapFallback from "../../assets/map_fallback.jpg";
 import guitarImg from "../../assets/guitar.jpg";
 import photographyImg from "../../assets/photography.jpg";
 import travellingImg from "../../assets/travelling.jpg";
@@ -99,9 +99,11 @@ const LowerAboutMe = () => {
               </Marker>
             </MapContainer>
           ) : (
-            <div className="text-center text-white">
-              Map is not available on mobile devices.
-            </div>
+            <img
+              src={mapFallback}
+              alt="Fallback Map"
+              className="w-full h-full object-cover rounded-lg"
+            />
           )}
         </div>
 

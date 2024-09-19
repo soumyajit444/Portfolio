@@ -6,7 +6,6 @@ import ContactForm from "../contactForm/ContactForm";
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
-
   const [isHidden, setIsHidden] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,14 +25,28 @@ const Header = () => {
     }
   };
 
+  const handleClickOutside = (e) => {
+    // Close menu if clicked outside the menu
+    if (isOpen && !document.querySelector("nav").contains(e.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleOptionClick = () => {
+    setIsOpen(false); // Close menu when clicking any option
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("click", handleClickOutside); // Add listener for outside clicks
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("click", handleClickOutside); // Clean up listener
     };
-  }, []);
+  }, [isOpen]);
 
   return (
     <>
@@ -74,8 +87,7 @@ const Header = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-white hover:text-gray-300 focus:outline-none"
               >
-                <FiMenu size={24} color="white" />{" "}
-                {/* Ensure the color is set */}
+                <FiMenu size={24} color="white" />
               </button>
             </div>
           </div>
@@ -89,14 +101,17 @@ const Header = () => {
                   offset={50}
                   duration={1000}
                   key={key}
-                  onClick={item.name === "Contact" ? onContactClick : null} // Trigger modal on "Contact"
+                  onClick={handleOptionClick} // Close menu on click
                   className="text-white hover:text-gray-300"
                 >
                   {item.name}
                 </Link>
               ))}
               <button
-                onClick={() => setShowModal(true)}
+                onClick={() => {
+                  setShowModal(true);
+                  setIsOpen(false); // Close menu on "Contact"
+                }}
                 className="cursor-pointer text-white hover:text-gray-300"
               >
                 Contact

@@ -52,10 +52,10 @@ export default function App() {
             }
           >
             <ScrollVideo />
+            <VideoSlider />
+            <ContactForm />
           </Suspense>
 
-          <VideoSlider />
-          <ContactForm />
           <AboutMe />
           <LowerAboutMe />
           <Footer />
