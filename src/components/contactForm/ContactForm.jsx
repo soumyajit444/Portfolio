@@ -57,7 +57,7 @@ const ContactForm = ({ showModal, setShowModal }) => {
 
   return (
     <>
-      <div className="fixed inset-0 flex max-md:flex-col max-md:scale-75 items-center justify-center bg-black bg-opacity-80 z-50 gap-4">
+      <div className="fixed inset-0 flex lg:flex-row md:flex-col max-md:flex-col max-md:scale-75 items-center justify-center bg-black bg-opacity-80 z-50 gap-4">
         {/* Container with video and transparent div */}
         <div className="flex flex-col justify-between max-w-md w-full h-auto gap-3">
           {/* Top Div with Video */}

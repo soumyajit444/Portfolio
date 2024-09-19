@@ -47,7 +47,7 @@ const Header = () => {
             <a href="#" className="text-xl font-bold text-white">
               Who am I?
             </a>
-            <div className="hidden md:flex space-x-4">
+            <div className="hidden lg:flex space-x-4">
               {navBar.map((item, key) => (
                 <Link
                   to={item.navLink}
@@ -69,7 +69,7 @@ const Header = () => {
                 Contact
               </button>
             </div>
-            <div className="md:hidden flex items-center">
+            <div className="lg:hidden flex items-center">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-white hover:text-gray-300 focus:outline-none"
@@ -80,7 +80,7 @@ const Header = () => {
             </div>
           </div>
           {isOpen && (
-            <div className="absolute top-full left-0 right-0 w-full bg-black bg-opacity-70 backdrop-blur-lg p-4 grid grid-cols-2 gap-4 place-items-center md:hidden">
+            <div className="absolute top-full left-0 right-0 w-full bg-black bg-opacity-70 backdrop-blur-lg p-4 grid grid-cols-2 gap-4 place-items-center lg:hidden">
               {navBar.map((item, key) => (
                 <Link
                   to={item.navLink}

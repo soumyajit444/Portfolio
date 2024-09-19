@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useScroll, useTransform } from "framer-motion";
 import videoSrc from "../../assets/scroll_video.webm"; // Default video file
 import videoSrc2 from "../../assets/scroll_video2.webm"; // Video for max-md screens
+import videoSrc3 from "../../assets/scroll_video3.webm"; // New video file for md screens
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,7 +12,8 @@ const ScrollVideo = () => {
   const videoRef = useRef(null);
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll();
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1023);
+  const [isTablet, setIsTablet] = useState(window.innerWidth <= 1024);
 
   // Define separate transforms for text animations based on screen size
   const leftToRightPC = useTransform(
@@ -36,6 +38,17 @@ const ScrollVideo = () => {
     ["300vw", "-300vw"]
   );
 
+  const leftToRightTablet = useTransform(
+    scrollYProgress,
+    [0.3, 0.9], // Similar range as PC but for tablet
+    ["-350vw", "350vw"]
+  );
+  const rightToLeftTablet = useTransform(
+    scrollYProgress,
+    [0.3, 0.9],
+    ["350vw", "-350vw"]
+  );
+
   useEffect(() => {
     const videoElement = videoRef.current;
 
@@ -56,14 +69,18 @@ const ScrollVideo = () => {
       },
     });
 
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsTablet(width <= 1024);
+    };
 
     window.addEventListener("resize", handleResize);
     return () => {
       videoTrigger.kill();
       window.removeEventListener("resize", handleResize);
     };
-  }, [isMobile]);
+  }, [isMobile, isTablet]);
 
   return (
     <div
@@ -72,7 +89,7 @@ const ScrollVideo = () => {
     >
       <video
         ref={videoRef}
-        src={isMobile ? videoSrc2 : videoSrc}
+        src={isMobile ? videoSrc2 : isTablet ? videoSrc3 : videoSrc}
         className="absolute inset-0 w-full h-full object-cover"
         muted
         playsInline
@@ -82,12 +99,18 @@ const ScrollVideo = () => {
       />
 
       {/* Conditionally render motion divs based on screen size */}
-      <div className="absolute inset-0 flex flex-col justify-center items-center text-white font-bold text-[8vw] max-md:text-[15vw] z-10">
+      <div className="absolute inset-0 flex flex-col justify-center items-center text-white font-bold lg:text-[8vw] md:text-[15vw] max-md:text-[15vw] z-10">
         {isMobile ? (
           <>
             <motion.div style={{ x: leftToRightMobile }}>Design</motion.div>
             <motion.div style={{ x: rightToLeftMobile }}>Develop</motion.div>
             <motion.div style={{ x: leftToRightMobile }}>Deploy</motion.div>
+          </>
+        ) : isTablet ? (
+          <>
+            <motion.div style={{ x: leftToRightTablet }}>Design</motion.div>
+            <motion.div style={{ x: rightToLeftTablet }}>Develop</motion.div>
+            <motion.div style={{ x: leftToRightTablet }}>Deploy</motion.div>
           </>
         ) : (
           <>

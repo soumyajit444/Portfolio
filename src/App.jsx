@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import ContentWrapper from "./components/content-wrapper/ContentWrapper";
 import Header from "./components/header/Header";
 import Hero from "./components/hero/Hero";
@@ -9,9 +9,11 @@ import TextReveal from "./components/textReveal/TextReveal";
 import VideoSlider from "./components/videoSlider/VideoSlider";
 import ContactForm from "./components/contactForm/ContactForm";
 import LoadingScreen from "./components/loadingScreen/LoadingScreen";
-import ScrollVideo from "./components/scrollVideo/ScrollVideo";
 import AboutMe from "./components/aboutMe/AboutMe";
 import LowerAboutMe from "./components/aboutMe/LowerAboutMe";
+
+// Lazy load the ScrollVideo component
+const ScrollVideo = lazy(() => import("./components/scrollVideo/ScrollVideo"));
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,14 +31,29 @@ export default function App() {
         <div className="bg-black min-h-screen">
           <ContentWrapper>
             <Header />
-            <Hero />
+            <Suspense
+              fallback={
+                <div className="fallback-container">Loading video...</div>
+              }
+            >
+              <Hero />
+            </Suspense>
             <SkillSlider />
           </ContentWrapper>
           <AnimatedContainer />
           <ContentWrapper>
             <TextReveal />
           </ContentWrapper>
-          <ScrollVideo />
+
+          {/* Wrap ScrollVideo with Suspense and provide a fallback */}
+          <Suspense
+            fallback={
+              <div className="fallback-container">Loading video...</div>
+            }
+          >
+            <ScrollVideo />
+          </Suspense>
+
           <VideoSlider />
           <ContactForm />
           <AboutMe />

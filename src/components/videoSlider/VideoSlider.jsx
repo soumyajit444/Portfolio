@@ -49,7 +49,7 @@ const VideoSlider = () => {
   return (
     <div
       id="projects"
-      className="max-w-4xl mx-auto p-4 my-[100px] max-md:mb-[150px] relative max-md:scale-75"
+      className="max-w-4xl mx-auto p-4 my-[100px] max-md:mb-[150px] relative md:scale-75 max-md:scale-75"
     >
       <h2 className="text-5xl font-light text-center mb-8 text-white max-md:text-4xl">
         Personal Projects

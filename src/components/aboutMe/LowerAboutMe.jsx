@@ -69,13 +69,13 @@ const LowerAboutMe = () => {
 
   return (
     <>
-      <div className="max-md:block px-8 hidden max-md:justify-center flex-col w-[95%] mx-auto">
+      <div className="lg:hidden md:block max-md:block px-8 hidden md:justify-center max-md:justify-center flex-col w-[95%] mx-auto">
         <div className="flex items-center justify-between text-white mt-6">
           <h2 className="text-3xl max-md:text-xl font-bold">My Location</h2>
           <p className="max-md:text-xs">Kolkata, West Bengal, India</p>
         </div>
         {/* Map Container */}
-        <div className="w-full mx-auto h-40 border border-gray-300 rounded-lg overflow-hidden mt-2 mb-6 z-0">
+        <div className="w-full mx-auto md:h-80 max-md:h-40 border border-gray-300 rounded-lg overflow-hidden mt-2 mb-6 z-0">
           {isMobile ? (
             <MapContainer
               center={[22.483993, 88.3434458]}
@@ -106,7 +106,7 @@ const LowerAboutMe = () => {
         </div>
 
         {/* Marquee Container */}
-        <Marquee className="w-full" speed={40} gradient={false}>
+        <Marquee className="w-full md:mb-[20px]" speed={40} gradient={false}>
           <div className="flex items-center space-x-4">
             {[...hobbies, ...hobbies, ...hobbies, ...hobbies].map(
               (hobby, index) => (
@@ -114,14 +114,14 @@ const LowerAboutMe = () => {
                   href={hobby.navLink}
                   target="_blank"
                   key={index}
-                  className="h-[70px] bg-gray-800 hover:bg-gray-900 shadow-lg rounded-lg transition-all flex items-center justify-center"
+                  className="max-md:h-[70px] md:h-[100px] bg-gray-800 hover:bg-gray-900 shadow-lg rounded-lg transition-all flex items-center justify-center"
                 >
                   <img
                     src={hobby.img}
                     alt={hobby.name}
-                    className="w-[40px] h-[40px] m-3 aspect-square rounded-lg"
+                    className="md:w-[60px] md:h-[60px] max-md:w-[40px] max-md:h-[40px] m-3 aspect-square rounded-lg"
                   />
-                  <p className="text-center text-xs p-3 font-light text-white">
+                  <p className="text-center max-md:text-xs md:text-md p-3 font-light text-white">
                     {hobby.name}
                   </p>
                 </a>

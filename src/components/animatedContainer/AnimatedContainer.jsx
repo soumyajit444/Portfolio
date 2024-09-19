@@ -81,17 +81,17 @@ const AnimatedContainer = () => {
         style={{ width: widthTransform }}
         initial={{ width: "50%", opacity: 0, y: 100 }}
         animate={containerControls}
-        className="bg-gray-200 h-full md:h-[100vh] mx-auto rounded-lg relative z-10 overflow-hidden"
+        className="bg-gray-200 h-full md:h-[120vh] mx-auto rounded-xl relative z-10 overflow-hidden"
       >
         <div className="h-full grid grid-rows-2 gap-10 py-10 max-md:py-20 px-6 md:px-12">
           {/* Top Half - Capgemini */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
             {/* Left: Capgemini images */}
-            <div className="relative flex justify-center items-center max-md:scale-[130%] max-md:h-32 max-md:overflow-hidden">
+            <div className="relative flex justify-center items-center lg:scale-100 md:scale-[90%] md:h-52 lg:overflow-visible md:overflow-hidden max-md:scale-[130%] max-md:h-32 max-md:overflow-hidden">
               <motion.img
                 src={capgemini}
                 alt="Capgemini"
-                className="w-1/2 rounded-lg h-auto"
+                className="w-1/2 rounded-lg lg:h-auto"
                 style={{ y: capgeminiY }}
                 initial={{ opacity: 0 }}
                 animate={fadeInControls}
@@ -99,23 +99,23 @@ const AnimatedContainer = () => {
               <motion.img
                 src={capgLogo}
                 alt="CapgeminiLogo"
-                className="absolute z-30 w-1/4 h-auto right-[10%] rounded-lg shadow-sm"
+                className="absolute z-30 w-1/4 lg:h-auto right-[10%] rounded-lg shadow-sm"
                 style={{ y: capgLogoY }}
               />
             </div>
             {/* Right: Capgemini paragraph */}
-            <div className="gap-2 space-y-4 my-5 mr-40 max-md:mx-auto">
+            <div className="gap-2 space-y-4 my-5 lg:mr-40 max-md:mx-auto">
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={fadeInControls}
-                className="text-xl max-md:text-sm mb-2"
+                className="text-xl md:text-lg max-md:text-sm mb-2"
               >
                 Capgemini | 2022 - 2024
               </motion.div>
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={fadeInControls}
-                className="text-left max-md:text-xs"
+                className="text-left md:text-sm max-md:text-xs"
               >
                 Passion driven front-end developer with 2 years of industry
                 experience specializing in HTML, CSS, and React JS. Proficient
@@ -129,13 +129,13 @@ const AnimatedContainer = () => {
           </div>
 
           {/* Bottom Half - Whitehat Jr */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
             {/* Left: Whitehat Jr images */}
-            <div className="relative flex justify-center items-center max-md:scale-[130%] max-md:h-32 max-md:overflow-hidden">
+            <div className="relative flex justify-center items-center lg:scale-100 md:scale-[90%] md:h-52 lg:overflow-visible md:overflow-hidden max-md:scale-[130%] max-md:h-32 max-md:overflow-hidden">
               <motion.img
                 src={whitehatjr}
                 alt="whitehatjr"
-                className="w-1/2 rounded-lg h-auto"
+                className="w-1/2 rounded-lg lg:h-auto"
                 style={{ y: whitehatjrY }}
                 initial={{ opacity: 0 }}
                 animate={fadeInControls}
@@ -143,23 +143,23 @@ const AnimatedContainer = () => {
               <motion.img
                 src={whatLogo}
                 alt="whatLogo"
-                className="absolute z-30 w-1/4 right-[10%] h-auto rounded-lg shadow-sm"
+                className="absolute z-30 w-1/4 right-[10%] lg:h-auto rounded-lg shadow-sm"
                 style={{ y: whatLogoY }}
               />
             </div>
             {/* Right: Whitehat Jr paragraph */}
-            <div className="gap-2 space-y-4 my-5 mr-40 max-md:mx-auto">
+            <div className="gap-2 space-y-4 my-5 lg:mr-40 max-md:mx-auto">
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={fadeInControls}
-                className="text-xl max-md:text-sm mb-2"
+                className="text-xl md:text-lg max-md:text-sm mb-2"
               >
                 Whitehat Jr | 2021 - 2022
               </motion.div>
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={fadeInControls}
-                className="text-left max-md:text-xs"
+                className="text-left md:text-sm max-md:text-xs"
               >
                 During my tenure at Whitehat Jr, I served as an instructor
                 specializing in HTML, CSS, and JavaScript. I delivered tailored

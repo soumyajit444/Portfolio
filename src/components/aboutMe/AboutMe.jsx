@@ -49,7 +49,7 @@ const AboutMe = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 1023);
     };
     window.addEventListener("resize", handleResize);
 
@@ -68,20 +68,20 @@ const AboutMe = () => {
   return (
     <div
       id="aboutMe"
-      className="w-full h-screen max-md:h-1/2 flex items-center justify-center"
+      className="w-full lg:h-screen md:h-1/2 max-md:h-1/2 flex items-center justify-center"
     >
       {/* Outer Container */}
       <div className="flex max-md:flex-col w-[90%] max-w-8xl h-[90%] rounded-lg overflow-hidden">
         {/* Left Div */}
         <div className="flex flex-1">
-          <div className="w-2/5 max-md:w-1/2 h-full p-4">
+          <div className="lg:w-2/5 md:w-2/5 max-md:w-1/2 h-full p-4">
             <img
               src={picture}
               alt="Profile"
-              className="w-full h-full max-md:h-[350px] max-md:w-[200px] object-cover rounded-lg"
+              className="lg:w-full lg:h-full md:h-[350px] md:w-[250px] max-md:h-[350px] max-md:w-[200px] object-cover rounded-lg"
             />
           </div>
-          <div className="w-3/5 max-md:w-1/2 flex flex-col p-4 space-y-4">
+          <div className="lg:w-3/5 md:w-3/5 max-md:w-1/2 flex flex-col p-4 space-y-4">
             <div className="text-white h-2/5 max-md:h-full">
               <h2 className="text-3xl max-md:text-2xl font-bold max-md:my-auto mb-4">
                 Education
@@ -105,14 +105,16 @@ const AboutMe = () => {
               <p className="max-md:text-xs">
                 Passed Secondary Examination (2017) with 59%
               </p>
-              <div className="flex items-center justify-between mt-8 mb-4 max-md:hidden">
-                <h2 className="text-3xl max-md:text-xl font-bold">
+              <div className="flex items-center justify-between mt-8 mb-4 lg:block md:hidden max-md:hidden text-white">
+                <h2 className="lg:text-3xl md:text-2xl max-md:text-xl font-bold">
                   My Location
                 </h2>
-                <p className="max-md:text-xs">Kolkata, West Bengal, India</p>
+                <p className="lg:text-xl md:text-lg max-md:text-xs">
+                  Kolkata, West Bengal, India
+                </p>
               </div>
             </div>
-            <div className="flex-1 h-3/5 border z-0 border-gray-300 rounded-lg overflow-hidden max-md:hidden">
+            <div className="flex-1 h-3/5 border z-0 border-gray-300 rounded-lg overflow-hidden lg:block md:hidden max-md:hidden">
               <MapContainer
                 center={[22.483993, 88.3434458]}
                 zoom={5}
@@ -137,7 +139,7 @@ const AboutMe = () => {
         {/* Right Div with Scroll-based Parallax */}
         <motion.div
           style={{ y: hobbiesY }}
-          className="w-1/4 h-full flex items-center max-md:mt-[500px] justify-center p-4 relative hobbies-container bg-transparent max-md:hidden"
+          className="w-1/4 h-full flex items-center max-md:mt-[500px] justify-center p-4 relative hobbies-container bg-transparent lg:block md:hidden max-md:hidden"
         >
           {/* Vertical Slider */}
           <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">

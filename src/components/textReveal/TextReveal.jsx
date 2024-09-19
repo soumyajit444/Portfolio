@@ -33,11 +33,11 @@ const TextReveal = () => {
     text.split("").map((char, i) => <span key={i}>{char}</span>);
 
   return (
-    <div className="h-[180vh] max-md:h-[200vh]">
+    <div className="lg:h-[180vh] md:h-[200vh] max-md:h-[200vh]">
       <div className="sticky top-0">
         <div
           className="flex h-[90vh] max-md:h-[100vh] w-auto text-white font-medium text-5xl items-center
-        max-md:scale-75 max-md:text-3xl"
+        md:scale-75 md:text-6xl max-md:scale-75 max-md:text-3xl"
         >
           {/* Gray Layer */}
           <p className="absolute text-gray-600 text-gray-layer justify-center text-center p-10">

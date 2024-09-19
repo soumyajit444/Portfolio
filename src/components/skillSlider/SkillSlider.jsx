@@ -19,7 +19,7 @@ const SkillSlider = () => {
     >
       <div className="w-full flex flex-col">
         <div className="flex flex-col text-center mb-10">
-          <span className="text-5xl font-thin max-md:text-3xl">
+          <span className="text-5xl font-thin md:text-5xl max-md:text-3xl">
             Technology Stack
           </span>
         </div>
