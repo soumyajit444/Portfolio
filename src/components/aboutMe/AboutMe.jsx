@@ -5,47 +5,71 @@ import { Icon } from "leaflet";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import markerShadowPng from "leaflet/dist/images/marker-shadow.png";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Modal from "../modal/Modal"; // Import Modal component
 
+// Importing images and videos for hobbies
 import picture from "../../assets/profile_hero.jpg";
-import guitarImg from "../../assets/guitar.jpg";
-import photographyImg from "../../assets/photography.jpg";
-import travellingImg from "../../assets/travelling.jpg";
-import paintingImg from "../../assets/painting.jpg";
-import singingImg from "../../assets/singing.jpg";
+import guitarVideo from "../../assets/guitar_video.mp4";
+import photographyImg from "../../assets/photography_real.jpg";
+import travellingVideo from "../../assets/travelling_video.mp4";
+import paintingImg from "../../assets/painting_real.jpg";
+import singingVideo from "../../assets/singing_video.mp4"; // Video for singing
+
+// Importing React Icons for each hobby
+import {
+  FaGuitar,
+  FaCamera,
+  FaPlane,
+  FaPaintBrush,
+  FaMusic,
+} from "react-icons/fa";
 
 const hobbies = [
   {
     name: "Guitar",
-    img: guitarImg,
-    navLink: "https://www.youtube.com/watch?v=0CUgZ_E3L2s",
+    icon: <FaGuitar className="text-white text-4xl" />, // Guitar icon
+    realMediaSrc: guitarVideo, // Updated key for video
+    mediaType: "video",
+    description: "I enjoy playing the guitar in my free time.",
   },
   {
     name: "Photography",
-    img: photographyImg,
-    navLink: "https://www.instagram.com/p/B3iBeo2nhmN/",
+    icon: <FaCamera className="text-white text-4xl" />, // Photography icon
+    realMediaSrc: photographyImg, // Updated key for image
+    mediaType: "photo",
+    description: "Capturing moments through photography is one of my hobbies.",
   },
   {
     name: "Travelling",
-    img: travellingImg,
-    navLink: "https://www.instagram.com/p/Cus_JY3g3cH/",
+    icon: <FaPlane className="text-white text-4xl" />, // Travelling icon
+    realMediaSrc: travellingVideo, // Updated key for video
+    mediaType: "video",
+    description:
+      "I love exploring new places and experiencing different cultures.",
   },
   {
     name: "Painting",
-    img: paintingImg,
-    navLink: "https://www.instagram.com/p/BiC0wY1FxWC/",
+    icon: <FaPaintBrush className="text-white text-4xl" />, // Painting icon
+    realMediaSrc: paintingImg, // Updated key for image
+    mediaType: "photo",
+    description: "Painting allows me to express creativity through colors.",
   },
   {
     name: "Singing",
-    img: singingImg,
-    navLink: "https://www.instagram.com/p/C1rgalqrqt1/",
+    icon: <FaMusic className="text-white text-4xl" />, // Singing icon
+    realMediaSrc: singingVideo, // Updated key for video
+    mediaType: "video",
+    description: "Singing is my way of relaxing and enjoying music.",
   },
 ];
 
 const AboutMe = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
   const { scrollYProgress } = useScroll();
   const hobbiesY = useTransform(scrollYProgress, [0.5, 1], [2200, -200]);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedHobby, setSelectedHobby] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -59,11 +83,21 @@ const AboutMe = () => {
   const customMarkerIcon = new Icon({
     iconUrl: markerIconPng,
     shadowUrl: markerShadowPng,
-    iconSize: [25, 41], // size of the icon
-    iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
-    popupAnchor: [1, -34], // point from which the popup should open relative to the iconAnchor
-    shadowSize: [41, 41], // size of the shadow
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
   });
+
+  const openModal = (hobby) => {
+    setSelectedHobby(hobby);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedHobby(null);
+  };
 
   return (
     <div
@@ -83,6 +117,7 @@ const AboutMe = () => {
           </div>
           <div className="lg:w-3/5 md:w-3/5 max-md:w-1/2 flex flex-col p-4 space-y-4">
             <div className="text-white h-2/5 max-md:h-full">
+              {/* Education Section */}
               <h2 className="text-3xl max-md:text-2xl font-bold max-md:my-auto mb-4">
                 Education
               </h2>
@@ -105,7 +140,9 @@ const AboutMe = () => {
               <p className="max-md:text-xs">
                 Passed Secondary Examination (2017) with 59%
               </p>
-              <div className="flex items-center justify-between mt-8 mb-4 lg:block md:hidden max-md:hidden text-white">
+
+              {/* Location Section */}
+              <div className="flex items-center justify-between mt-8 mb-4 lg:flex md:hidden max-md:hidden text-white">
                 <h2 className="lg:text-3xl md:text-2xl max-md:text-xl font-bold">
                   My Location
                 </h2>
@@ -114,6 +151,8 @@ const AboutMe = () => {
                 </p>
               </div>
             </div>
+
+            {/* Map Container */}
             <div className="flex-1 h-3/5 border z-0 border-gray-300 rounded-lg overflow-hidden lg:block md:hidden max-md:hidden">
               <MapContainer
                 center={[22.483993, 88.3434458]}
@@ -142,27 +181,25 @@ const AboutMe = () => {
           className="w-1/4 h-full flex items-center max-md:mt-[500px] justify-center p-4 relative hobbies-container bg-transparent lg:block md:hidden max-md:hidden"
         >
           {/* Vertical Slider */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">
+          <div className="absolute inset-0 flex flex-col items-center justify-center space-y-6">
             {hobbies.map((hobby, index) => (
-              <a
-                href={hobby.navLink}
-                target="_blank"
+              <button
+                onClick={() => openModal(hobby)}
                 key={index}
-                className="w-[400px] h-[200px] max-md:w-[150px] max-md:h-[70px] p-4 bg-gray-600 hover:bg-gray-800 cursor-pointer shadow-lg rounded-lg transition-all flex items-center justify-center"
+                className="w-[350px] h-[200px] p-4 bg-gray-600 hover:bg-gray-800 cursor-pointer shadow-lg rounded-lg transition-all flex gap-4 items-center justify-center"
               >
-                <img
-                  src={hobby.img}
-                  alt={hobby.name}
-                  className="w-[150px] h-[150px] max-md:w-[50px] max-md:h-[50px] aspect-square rounded-lg"
-                />
-                <p className="text-center mx-auto text-2xl max-md:text-sm font-light text-white">
-                  {hobby.name}
-                </p>
-              </a>
+                {hobby.icon} {/* Display React Icon */}
+                <span className="text-white text-3xl font-light mt-2">
+                  {hobby.name} {/* Display Hobby Name */}
+                </span>
+              </button>
             ))}
           </div>
         </motion.div>
       </div>
+
+      {/* Modal for displaying hobby details */}
+      {modalIsOpen && <Modal hobby={selectedHobby} onClose={closeModal} />}
     </div>
   );
 };

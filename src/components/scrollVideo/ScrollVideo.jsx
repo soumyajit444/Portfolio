@@ -40,12 +40,12 @@ const ScrollVideo = () => {
 
   const leftToRightTablet = useTransform(
     scrollYProgress,
-    [0.3, 0.9], // Similar range as PC but for tablet
+    [0.4, 0.9], // Similar range as PC but for tablet
     ["-350vw", "350vw"]
   );
   const rightToLeftTablet = useTransform(
     scrollYProgress,
-    [0.3, 0.9],
+    [0.4, 0.9],
     ["350vw", "-350vw"]
   );
 

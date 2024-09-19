@@ -85,9 +85,9 @@ const AnimatedContainer = () => {
       >
         <div className="h-full grid grid-rows-2 gap-10 py-10 max-md:py-20 px-6 md:px-12">
           {/* Top Half - Capgemini */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center ">
             {/* Left: Capgemini images */}
-            <div className="relative flex justify-center items-center lg:scale-100 md:scale-[90%] md:h-52 lg:overflow-visible md:overflow-hidden max-md:scale-[130%] max-md:h-32 max-md:overflow-hidden">
+            <div className="relative flex justify-center items-center lg:scale-100 md:scale-[90%] md:h-52  max-md:scale-[130%] max-md:h-32 lg:overflow-visible md:overflow-hidden max-md:overflow-hidden">
               <motion.img
                 src={capgemini}
                 alt="Capgemini"
@@ -129,9 +129,9 @@ const AnimatedContainer = () => {
           </div>
 
           {/* Bottom Half - Whitehat Jr */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center ">
             {/* Left: Whitehat Jr images */}
-            <div className="relative flex justify-center items-center lg:scale-100 md:scale-[90%] md:h-52 lg:overflow-visible md:overflow-hidden max-md:scale-[130%] max-md:h-32 max-md:overflow-hidden">
+            <div className="relative flex justify-center items-center lg:scale-100 md:scale-[90%] md:h-52  max-md:scale-[130%] max-md:h-32 lg:overflow-visible md:overflow-hidden max-md:overflow-hidden">
               <motion.img
                 src={whitehatjr}
                 alt="whitehatjr"

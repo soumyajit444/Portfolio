@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { FaInstagram, FaYoutube, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaEnvelope, FaLinkedin } from "react-icons/fa";
 import ContactForm from "../contactForm/ContactForm";
 
 // Variants for text animations (slide from right to center)
@@ -65,22 +65,22 @@ const Footer = () => {
             className="flex justify-center mb-4"
           >
             <motion.a
-              href="https://instagram.com/soumyajit_guitarist"
+              href="https://github.com/soumyajit444"
               target="_blank"
               rel="noopener noreferrer"
               whileHover="hover"
-              className="text-white text-2xl mx-3 hover:text-pink-500"
+              className="text-white text-2xl mx-3 hover:text-gray-500"
             >
-              <FaInstagram />
+              <FaGithub />
             </motion.a>
             <motion.a
-              href="https://www.youtube.com/@SoumyajitSengupta"
+              href="mailto:soumyajitsengupta15@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
               whileHover="hover"
-              className="text-white text-2xl mx-3 hover:text-red-600"
+              className="text-white text-2xl mx-3 hover:text-amber-500"
             >
-              <FaYoutube />
+              <FaEnvelope />
             </motion.a>
             <motion.a
               href="https://linkedin.com/soumyajit-sengupta-analyst"

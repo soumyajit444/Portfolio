@@ -1,45 +1,44 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FaLinkedin, FaEnvelope, FaYoutube } from "react-icons/fa";
+import { FaLinkedin, FaEnvelope, FaGithub } from "react-icons/fa";
 import video from "../../assets/animation.mp4";
+import fallbackImage from "../../assets/fallback_pic.jpg";
 
 const ContactForm = ({ showModal, setShowModal }) => {
   const form = useRef();
   const [hovered, setHovered] = useState({ phone: false, email: false });
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
-  if (showModal) {
-    document.body.classList.add("activeModal");
-  } else {
-    document.body.classList.remove("activeModal");
-  }
-
-  // Dialog Flow Chatbot
-
-  if (showModal) {
-    const messenger = document.querySelector("df-messenger");
-    if (messenger) {
-      messenger.remove(); // Removes the df-messenger element if it exists
+  useEffect(() => {
+    // Toggle active modal class for the background blur effect
+    if (showModal) {
+      document.body.classList.add("activeModal");
+    } else {
+      document.body.classList.remove("activeModal");
     }
-  } else {
-    if (!document.querySelector("df-messenger")) {
-      const messenger = document.createElement("df-messenger");
-      messenger.setAttribute("intent", "WELCOME");
-      messenger.setAttribute("chat-title", "Echo-AI");
-      messenger.setAttribute(
+
+    // Manage the Dialog Flow Chatbot
+    const messenger = document.querySelector("df-messenger");
+    if (showModal && messenger) {
+      messenger.remove();
+    } else if (!showModal && !messenger) {
+      const newMessenger = document.createElement("df-messenger");
+      newMessenger.setAttribute("intent", "WELCOME");
+      newMessenger.setAttribute("chat-title", "Echo-AI");
+      newMessenger.setAttribute(
         "agent-id",
         "d003c164-a277-46ce-bdcc-0c76e5e6249c"
       );
-      messenger.setAttribute("language-code", "en");
-      messenger.style.zIndex = 10;
-      document.body.appendChild(messenger); // Adds the df-messenger element
+      newMessenger.setAttribute("language-code", "en");
+      newMessenger.style.zIndex = 100;
+      document.body.appendChild(newMessenger);
     }
-  }
+  }, [showModal]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     emailjs
       .sendForm("service_1ye5rbc", "template_nxr8y92", form.current, {
         publicKey: "g4EbswnRbOlha3mEc",
@@ -47,8 +46,7 @@ const ContactForm = ({ showModal, setShowModal }) => {
       .then(() => {
         toast.success("Message sent successfully");
       })
-      .catch((e) => {
-        console.log(e);
+      .catch(() => {
         toast.error("Failed to send message.");
       });
   };
@@ -57,21 +55,34 @@ const ContactForm = ({ showModal, setShowModal }) => {
 
   return (
     <>
-      <div className="fixed inset-0 flex lg:flex-row md:flex-col-reverse max-md:flex-col-reverse max-md:scale-75 items-center justify-center z-50 gap-4">
+      {/* Dark blurry background */}
+      <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md z-40"></div>
+
+      {/* Modal Content */}
+      <div className="fixed inset-0 flex lg:flex-row md:flex-col-reverse max-md:flex-col-reverse lg:scale-[100%] md:scale-[80%] max-md:scale-[60%] items-center justify-center z-50 gap-4">
         {/* Container with video and transparent div */}
         <div className="flex flex-col justify-between max-w-md w-full h-auto gap-3">
           {/* Top Div with Video */}
-          <div className="rounded-xl overflow-hidden">
+          <div className="rounded-xl overflow-hidden relative">
+            {!videoLoaded && (
+              <img
+                src={fallbackImage}
+                alt="Fallback"
+                className="w-full h-full object-cover absolute inset-0"
+              />
+            )}
             <video
               autoPlay
               loop
               muted
-              className="w-full h-full md:hidden lg:block max-md: block object-cover"
+              className="w-full h-full object-cover"
+              onLoadedData={() => setVideoLoaded(true)}
             >
               <source src={video} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
+
           {/* Bottom Transparent Div */}
           <div className="flex justify-between gap-4 mt-3 w-full">
             <div
@@ -82,13 +93,14 @@ const ContactForm = ({ showModal, setShowModal }) => {
               {hovered.phone ? "8622874796" : "Call me"}
             </div>
             <div
-              className="flex-1 p-5  rounded-xl border border-gray-300 text-white text-center transition-transform duration-300 bg-black shadow-lg backdrop-blur-lg bg-opacity-60 relative"
+              className="flex-1 p-5 rounded-xl border border-gray-300 text-white text-center transition-transform duration-300 bg-black shadow-lg backdrop-blur-lg bg-opacity-60 relative"
               onMouseEnter={() => setHovered({ ...hovered, email: true })}
               onMouseLeave={() => setHovered({ ...hovered, email: false })}
             >
               {hovered.email ? "soumyajitsengupta15@gmail.com" : "Email me"}
             </div>
           </div>
+
           {/* New Div with Icons */}
           <div className="flex justify-between mt-3 rounded-xl border border-gray-300 p-4 h-auto bg-black shadow-lg backdrop-blur-lg bg-opacity-60 relative">
             <a
@@ -106,12 +118,12 @@ const ContactForm = ({ showModal, setShowModal }) => {
               <FaEnvelope />
             </a>
             <a
-              href="https://www.youtube.com/SoumyajitSengupta"
+              href="https://github.com/soumyajit444"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-red-500 text-4xl mx-1.5 transition-transform duration-300 hover:scale-105"
+              className="text-gray-300 text-4xl mx-1.5 transition-transform duration-300 hover:scale-105"
             >
-              <FaYoutube />
+              <FaGithub />
             </a>
           </div>
         </div>
@@ -134,7 +146,7 @@ const ContactForm = ({ showModal, setShowModal }) => {
                 placeholder="Enter your first name"
                 type="text"
                 name="firstName"
-                className="w-full mt-1 p-2   rounded bg-gray-800 text-white placeholder-gray-400"
+                className="w-full mt-1 p-2 rounded bg-gray-800 text-white placeholder-gray-400"
                 required
               />
             </div>
@@ -144,7 +156,7 @@ const ContactForm = ({ showModal, setShowModal }) => {
                 placeholder="Enter your last name"
                 type="text"
                 name="lastName"
-                className="w-full mt-1 p-2   rounded bg-gray-800 text-white placeholder-gray-400"
+                className="w-full mt-1 p-2 rounded bg-gray-800 text-white placeholder-gray-400"
                 required
               />
             </div>

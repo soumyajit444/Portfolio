@@ -7,56 +7,84 @@ import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import markerRetina from "leaflet/dist/images/marker-icon-2x.png";
 import Marquee from "react-fast-marquee";
 import mapFallback from "../../assets/map_fallback.jpg";
-import guitarImg from "../../assets/guitar.jpg";
-import photographyImg from "../../assets/photography.jpg";
-import travellingImg from "../../assets/travelling.jpg";
-import paintingImg from "../../assets/painting.jpg";
-import singingImg from "../../assets/singing.jpg";
+
 import { Link } from "react-scroll";
+
+import Modal from "../modal/Modal"; // Import Modal component
+
+// Importing images and videos for hobbies
+import picture from "../../assets/profile_hero.jpg";
+import guitarVideo from "../../assets/guitar_video.mp4";
+import photographyImg from "../../assets/photography_real.jpg";
+import travellingVideo from "../../assets/travelling_video.mp4";
+import paintingImg from "../../assets/painting_real.jpg";
+import singingVideo from "../../assets/singing_video.mp4"; // Video for singing
+
+// Importing React Icons for each hobby
+import {
+  FaGuitar,
+  FaCamera,
+  FaPlane,
+  FaPaintBrush,
+  FaMusic,
+} from "react-icons/fa";
+
+const hobbies = [
+  {
+    name: "Guitar",
+    icon: <FaGuitar className="text-white text-4xl" />,
+    realMediaSrc: guitarVideo,
+    mediaType: "video",
+    description: "I enjoy playing the guitar in my free time.",
+  },
+  {
+    name: "Photography",
+    icon: <FaCamera className="text-white text-4xl" />,
+    realMediaSrc: photographyImg,
+    mediaType: "photo",
+    description: "Capturing moments through photography is one of my hobbies.",
+  },
+  {
+    name: "Travelling",
+    icon: <FaPlane className="text-white text-4xl" />,
+    realMediaSrc: travellingVideo,
+    mediaType: "video",
+    description:
+      "I love exploring new places and experiencing different cultures.",
+  },
+  {
+    name: "Painting",
+    icon: <FaPaintBrush className="text-white text-4xl" />,
+    realMediaSrc: paintingImg,
+    mediaType: "photo",
+    description: "Painting allows me to express creativity through colors.",
+  },
+  {
+    name: "Singing",
+    icon: <FaMusic className="text-white text-4xl" />,
+    realMediaSrc: singingVideo,
+    mediaType: "video",
+    description: "Singing is my way of relaxing and enjoying music.",
+  },
+];
 
 // Custom marker for Leaflet
 const customMarker = new L.Icon({
   iconUrl: markerIcon,
   iconRetinaUrl: markerRetina,
   shadowUrl: markerShadow,
-  iconSize: [25, 41], // size of the icon
-  iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
-  popupAnchor: [1, -34], // point from which the popup should open relative to the iconAnchor
-  shadowSize: [41, 41], // size of the shadow
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
 });
-
-const hobbies = [
-  {
-    name: "Guitar",
-    img: guitarImg,
-    navLink: "https://www.youtube.com/watch?v=0CUgZ_E3L2s",
-  },
-  {
-    name: "Photography",
-    img: photographyImg,
-    navLink: "https://www.instagram.com/p/B3iBeo2nhmN/",
-  },
-  {
-    name: "Travelling",
-    img: travellingImg,
-    navLink: "https://www.instagram.com/p/Cus_JY3g3cH/",
-  },
-  {
-    name: "Painting",
-    img: paintingImg,
-    navLink: "https://www.instagram.com/p/BiC0wY1FxWC/",
-  },
-  {
-    name: "Singing",
-    img: singingImg,
-    navLink: "https://www.instagram.com/p/C1rgalqrqt1/",
-  },
-];
 
 const LowerAboutMe = () => {
   const mapContainerRef = useRef(null);
   const [scrollWheelZoom, setScrollWheelZoom] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedHobby, setSelectedHobby] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -66,6 +94,16 @@ const LowerAboutMe = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const openModal = (hobby) => {
+    setSelectedHobby(hobby);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedHobby(null);
+  };
 
   return (
     <>
@@ -112,26 +150,23 @@ const LowerAboutMe = () => {
           <div className="flex items-center space-x-4">
             {[...hobbies, ...hobbies, ...hobbies, ...hobbies].map(
               (hobby, index) => (
-                <a
-                  href={hobby.navLink}
-                  target="_blank"
+                <button
+                  onClick={() => openModal(hobby)}
                   key={index}
-                  className="max-md:h-[70px] md:h-[100px] bg-gray-800 hover:bg-gray-900 shadow-lg rounded-lg transition-all flex items-center justify-center"
+                  className="w-full  h-[100px] p-4 bg-gray-600 hover:bg-gray-800 cursor-pointer shadow-lg rounded-lg transition-all flex gap-4 items-center justify-center flex-grow"
                 >
-                  <img
-                    src={hobby.img}
-                    alt={hobby.name}
-                    className="md:w-[60px] md:h-[60px] max-md:w-[40px] max-md:h-[40px] m-3 aspect-square rounded-lg"
-                  />
-                  <p className="text-center max-md:text-xs md:text-md p-3 font-light text-white">
+                  {hobby.icon}
+                  <span className="text-white text-xl font-light mx-auto">
                     {hobby.name}
-                  </p>
-                </a>
+                  </span>
+                </button>
               )
             )}
           </div>
         </Marquee>
       </div>
+      {/* Modal for displaying hobby details */}
+      {modalIsOpen && <Modal hobby={selectedHobby} onClose={closeModal} />}
       <div className="flex items-center justify-center p-4">
         <Link
           to="home"
