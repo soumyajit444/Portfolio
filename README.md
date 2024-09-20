@@ -1,4 +1,4 @@
-Personal Portfolio
+Personal Portfolio:
 This repository contains the source code for my personal portfolio, a fully responsive website built using React.js and styled with Tailwind CSS. The site showcases my introduction, resume, education, experience, skills, and hobbies, along with some creative elements and interactive features.
 
 Features:
