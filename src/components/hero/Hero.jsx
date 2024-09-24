@@ -15,13 +15,10 @@ const Hero = () => {
     config: { duration: 1500 },
   });
 
-  // Set the video loaded state
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setVideoLoaded(true); // Simulate fading in for the whole component
-    }, 500); // Delay for fade-in effect
-    return () => clearTimeout(timer);
-  }, []);
+  // Handle video loaded state
+  const handleVideoLoaded = () => {
+    setVideoLoaded(true);
+  };
 
   return (
     <animated.div
@@ -30,27 +27,32 @@ const Hero = () => {
       className="flex lg:flex-row md:flex-col max-md:flex-col items-center w-full px-4 py-8 max-md:items-start"
     >
       <div className="flex justify-center mb-7 items-center lg:w-2/5 md:w-1/2 max-md:w-3/4 max-md:mx-auto mt-[30px]">
-        {/* Skeleton Loader */}
+        {/* Fallback Image (shown until video loads) */}
         {!videoLoaded && (
-          <div className="bg-black animate-pulse rounded-full w-full aspect-square max-md:w-[80%]" />
+          <img
+            src={posterImg}
+            alt="Fallback"
+            className="w-full aspect-square rounded-full max-md:w-[80%]"
+          />
         )}
 
         {/* Lazy-loaded video with fade-in effect */}
         <animated.video
           ref={videoRef}
           src={heroVideo}
-          alt="Profile"
           className={`w-full aspect-square rounded-full max-md:w-[80%] ${
             videoLoaded ? "" : "hidden"
           }`}
           autoPlay
           loop
           muted
-          style={fadeIn}
           preload="metadata"
-          poster={posterImg}
+          poster={posterImg} // Set poster to the fallback image
+          onLoadedData={handleVideoLoaded} // Set video loaded when ready
+          style={fadeIn}
         />
       </div>
+
       <div className="flex flex-col gap-2 justify-center w-3/5 max-md:w-full lg:w-1/2 md:w-[85%] lg:text-left md:text-center max-md:text-center">
         <p className="text-[#00ff2b]">Hey, I am Soumyajit Sengupta</p>
         <h1 className="w-full text-white text-4xl md:text-3xl max-md:text-2xl font-bold">

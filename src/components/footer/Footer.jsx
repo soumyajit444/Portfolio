@@ -47,7 +47,7 @@ const Footer = () => {
       <motion.footer
         initial="hidden"
         animate={controls}
-        className="bg-stone-950 text-white text-center py-6 max-md:py-3 "
+        className="bg-stone-950 text-white text-center py-6 max-md:py-3 overflow-x-hidden"
       >
         <div className="max-md:scale-75">
           <motion.p

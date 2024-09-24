@@ -117,13 +117,17 @@ const AnimatedContainer = () => {
                 animate={fadeInControls}
                 className="text-left md:text-sm max-md:text-xs"
               >
-                Passion driven front-end developer with 2 years of industry
-                experience specializing in HTML, CSS, and React JS. Proficient
-                in implementing responsive designs and enhancing user
-                experiences through Tailwind CSS. Skilled in version control
-                with GitHub and Git, ensuring seamless collaboration and project
-                management. Committed to delivering high-quality code and
-                staying updated with the latest web development trends.
+                As a Software Engineer at Capgemini for over 2 years, I have
+                worked on front-end development using HTML, CSS, JavaScript, and
+                React JS, building responsive and user-centric applications. My
+                experience includes integrating modern design solutions with
+                Tailwind CSS, optimizing performance, and working with RESTful
+                APIs to enhance functionality. I have effectively managed
+                version control through Git and GitHub, ensuring smooth
+                collaboration and project delivery within Agile methodology.
+                Committed to delivering high-quality code, I stay updated with
+                the latest web development trends, continuously improving
+                solutions to meet business and client needs.
               </motion.p>
             </div>
           </div>

@@ -12,14 +12,12 @@ const ContactForm = ({ showModal, setShowModal }) => {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
-    // Toggle active modal class for the background blur effect
     if (showModal) {
       document.body.classList.add("activeModal");
     } else {
       document.body.classList.remove("activeModal");
     }
 
-    // Manage the Dialog Flow Chatbot
     const messenger = document.querySelector("df-messenger");
     if (showModal && messenger) {
       messenger.remove();
@@ -69,12 +67,14 @@ const ContactForm = ({ showModal, setShowModal }) => {
                 src={fallbackImage}
                 alt="Fallback"
                 className="w-full h-full object-cover absolute inset-0"
+                style={{ objectFit: "cover" }}
               />
             )}
             <video
               autoPlay
               loop
               muted
+              preload="auto"
               className="w-full h-full object-cover"
               onLoadedData={() => setVideoLoaded(true)}
             >
