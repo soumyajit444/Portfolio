@@ -72,12 +72,15 @@ const Hero = () => {
           />
         </h1>
         <div className="text-gray-300 md:text-sm max-md:text-xs">
-          Frontend developer with 2 years of experience in the IT industry.
-          Currently working at Capgemini as an Analyst. Passionate about Agile
-          methodology, I specialize in React JS, JavaScript, HTML, and CSS. My
-          dedication to work has earned me a Certificate of Appreciation from
-          both clients and the company. Eager to learn and stay updated with new
-          technologies.
+          Dynamic frontend developer with hands-on experience in the IT sector,
+          having excelled as a Software Engineer at Capgemini and an Instructor
+          at WhiteHat Jr. I am passionate about leveraging Agile methodologies
+          to deliver high-quality solutions. Proficient in React JS, JavaScript,
+          HTML, CSS, and Redux, along with strong Git skills, I thrive in
+          collaborative environments. My commitment to excellence has been
+          recognized with Certificates of Appreciation from both clients and the
+          company. Eager to embrace new technologies and contribute to
+          innovative projects.
         </div>
         <a
           href={resume}
