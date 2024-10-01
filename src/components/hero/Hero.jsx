@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import heroVideo from "../../assets/hero_video.webm";
 import { Typewriter } from "react-simple-typewriter";
-import resume from "../../assets/Soumyajit-Sengupta-CV1.pdf";
+import resume from "../../assets/Soumyajit-Sengupta-resume1.pdf";
 import { useSpring, animated } from "@react-spring/web";
 import posterImg from "../../assets/posterImg.png";
 
@@ -72,15 +72,15 @@ const Hero = () => {
           />
         </h1>
         <div className="text-gray-300 md:text-sm max-md:text-xs">
-          Dynamic frontend developer with hands-on experience in the IT sector,
-          having excelled as a Software Engineer at Capgemini and an Instructor
-          at WhiteHat Jr. I am passionate about leveraging Agile methodologies
-          to deliver high-quality solutions. Proficient in React JS, JavaScript,
-          HTML, CSS, and Redux, along with strong Git skills, I thrive in
-          collaborative environments. My commitment to excellence has been
-          recognized with Certificates of Appreciation from both clients and the
-          company. Eager to embrace new technologies and contribute to
-          innovative projects.
+          Over two years of experience as a Software Engineer, I specialize in
+          UI/UX design and Front End Development. I have hands-on experience in
+          wireframing and prototyping using Figma, along with proficiency in
+          React JS, JavaScript, HTML, CSS, Tailwind, and Redux. I also have
+          solid experience with version control using Git. My work is driven by
+          Agile methodologies, and I've been recognized with Certificates of
+          Appreciation for my commitment to delivering high-quality solutions.
+          I'm eager to embrace new technologies and contribute to innovative
+          projects.
         </div>
         <a
           href={resume}
